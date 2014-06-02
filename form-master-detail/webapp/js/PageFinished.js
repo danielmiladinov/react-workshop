@@ -12,7 +12,15 @@ define([
 
     var App = React.createClass({
         getInitialState: function () {
-            return { counts: _.range(100).map(function () { return 0; }) };
+            return {
+                very: {
+                    deeply: {
+                        nested: {
+                            counts: _.range(400).map(function () { return 0; })
+                        }
+                    }
+                }
+            };
         },
 
         pendingState: function () {
@@ -25,15 +33,16 @@ define([
 
         render: function () {
             var cursor = Cursor.build(this.state, this.pendingState, this.setState.bind(this), util.deepClone);
-            var counts = cursor.refine('counts');
+            var counts = cursor.refine('very', 'deeply', 'nested', 'counts');
 
-            var fun = counts.value.map(function (count, index) {
+            var contents = counts.value.map(function (count, index) {
                 return (<Clicker key={index} cursor={counts.refine(index)} />);
             }.bind(this));
+
             return (
                 <div className="App">
-                  <div className="MasterDetailDemo">{fun}</div>
-                  <JsonEditor targetCursor={cursor} />
+                    <div className="MasterDetailDemo">{contents}</div>
+                    <JsonEditor targetCursor={cursor} />
                 </div>
             );
         }
