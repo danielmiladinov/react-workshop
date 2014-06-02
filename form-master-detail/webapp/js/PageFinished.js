@@ -39,8 +39,6 @@ define([
         }
     });
 
-    var KendoText = Forms.KendoText;
-
     var Clicker = React.createClass({
         render: function () {
             return (
@@ -67,7 +65,6 @@ define([
         },
 
         shouldComponentUpdate: function (nextProps) {
-            //return true;
             return this.props.cursor.value !== nextProps.cursor.value;
         }
     });
