@@ -52,7 +52,9 @@ define([
         },
 
         onInputChange: function (e) {
-            this.props.cursor.onChange(parseInt(e.target.value, 10));
+            var nextValue = parseInt(e.target.value, 10);
+            if (isNaN(nextValue)) nextValue = '';
+            this.props.cursor.onChange(nextValue);
         },
 
         inc2: function () {
